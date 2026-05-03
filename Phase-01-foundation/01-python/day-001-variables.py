@@ -30,5 +30,5 @@ print(f'he got a gpa of {gpa}')
 #       this have false or true
 
 he_study_abroad = True
-he_is_lying = False
+he_is_lying = True
 he_likes_to_study_abroad = True
