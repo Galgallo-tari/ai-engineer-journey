@@ -11,6 +11,7 @@ Net_worth = 27,000.67
 
 #boolean
 he_is_disciplined = True
+he_can_do_this = True
 
 
 print (f'{Name} is {Age} year old, '
