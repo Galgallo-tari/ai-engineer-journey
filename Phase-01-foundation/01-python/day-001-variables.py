@@ -1,5 +1,8 @@
 #This is May 03th 2026
 
+#variables are the storage location that holds value:
+#example: name holds Galgallo. age holds 19
+
 #string
 #       in python they are texts enclosed in quotes, Example:
 name = 'Galgallo'
