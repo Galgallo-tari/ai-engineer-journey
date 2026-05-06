@@ -1,0 +1,1921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Galgallo — AI Engineer 13-Month Master Guide</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Cabinet+Grotesk:wght@400;500;700;800;900&display=swap');
+
+:root {
+  --bg: #f5f0e8;
+  --paper: #faf7f2;
+  --ink: #1a1208;
+  --ink2: #3d3020;
+  --muted: #8a7a60;
+  --border: #d4c9b0;
+  --p1: #c84b2f;
+  --p2: #2563a8;
+  --p3: #7c3aed;
+  --p4: #b45309;
+  --p5: #166534;
+  --p6: #be185d;
+  --tag-bg: #e8e0d0;
+  --pycharm: #21d789;
+  --watch: #f59e0b;
+  --read: #3b82f6;
+  --practice: #ef4444;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Cabinet Grotesk', sans-serif;
+  line-height: 1.6;
+}
+
+/* NOISE TEXTURE */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.4;
+}
+
+/* HEADER */
+header {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 64px 28px 48px;
+  border-bottom: 2px solid var(--ink);
+}
+
+.header-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.owner-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+h1 {
+  font-size: clamp(40px, 7vw, 80px);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -3px;
+  color: var(--ink);
+}
+
+h1 span {
+  color: var(--p1);
+}
+
+.header-meta {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.big-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 72px;
+  font-weight: 300;
+  color: var(--border);
+  line-height: 1;
+  letter-spacing: -4px;
+}
+
+.big-num-label {
+  font-size: 12px;
+  color: var(--muted);
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.header-desc {
+  margin-top: 24px;
+  max-width: 560px;
+  font-size: 16px;
+  color: var(--ink2);
+  line-height: 1.7;
+}
+
+/* LEGEND */
+.legend-bar {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px 28px;
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  background: var(--paper);
+}
+
+.legend-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  padding: 4px 10px;
+  border-radius: 2px;
+  font-weight: 500;
+}
+
+.badge-pycharm { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; }
+.badge-watch   { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
+.badge-read    { background: #dbeafe; color: #1e40af; border: 1px solid #93c5fd; }
+.badge-practice{ background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+.badge-notebook{ background: #ede9fe; color: #5b21b6; border: 1px solid #c4b5fd; }
+
+/* CONTROLS */
+.controls {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 16px 28px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.ctrl {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+  background: var(--ink);
+  color: var(--bg);
+  border: none;
+  padding: 8px 18px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.ctrl:hover { opacity: 0.75; }
+.ctrl.outline {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--border);
+}
+
+/* MAIN */
+.main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 28px 80px;
+}
+
+/* PHASE BLOCK */
+.phase {
+  margin-bottom: 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.phase-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 24px 0;
+  cursor: pointer;
+  user-select: none;
+  transition: opacity 0.15s;
+}
+.phase-header:hover { opacity: 0.75; }
+
+.phase-number {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  width: 32px;
+  flex-shrink: 0;
+  color: var(--muted);
+}
+
+.phase-title-block { flex: 1; }
+
+.phase-name {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.phase-subtitle {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 2px;
+  letter-spacing: 1px;
+}
+
+.phase-toggle {
+  font-family: 'DM Mono', monospace;
+  font-size: 20px;
+  color: var(--muted);
+  flex-shrink: 0;
+  width: 28px;
+  text-align: center;
+}
+
+/* COLOR ACCENTS */
+.p1 .phase-name { color: var(--p1); }
+.p2 .phase-name { color: var(--p2); }
+.p3 .phase-name { color: var(--p3); }
+.p4 .phase-name { color: var(--p4); }
+.p5 .phase-name { color: var(--p5); }
+.p6 .phase-name { color: var(--p6); }
+
+/* PHASE BODY */
+.phase-body { display: none; padding-bottom: 32px; }
+.phase-body.open { display: block; }
+
+/* FOLDER BLOCK */
+.folder-block {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-left: 4px solid;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.p1 .folder-block { border-left-color: var(--p1); }
+.p2 .folder-block { border-left-color: var(--p2); }
+.p3 .folder-block { border-left-color: var(--p3); }
+.p4 .folder-block { border-left-color: var(--p4); }
+.p5 .folder-block { border-left-color: var(--p5); }
+.p6 .folder-block { border-left-color: var(--p6); }
+
+.folder-header {
+  padding: 14px 20px 10px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--border);
+  background: var(--tag-bg);
+}
+
+.folder-name {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+  flex: 1;
+}
+
+.folder-name span {
+  font-size: 11px;
+  color: var(--muted);
+  display: block;
+  margin-top: 2px;
+  font-weight: 400;
+}
+
+.badges { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+
+.folder-body { padding: 16px 20px; }
+
+/* TOPIC ROW */
+.topic {
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--border);
+}
+.topic:last-child { border-bottom: none; }
+
+.topic-name {
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.topic-tasks {
+  list-style: none;
+  margin: 6px 0 8px 0;
+}
+
+.topic-tasks li {
+  font-size: 13px;
+  color: var(--ink2);
+  padding: 2px 0 2px 16px;
+  position: relative;
+  line-height: 1.5;
+}
+
+.topic-tasks li::before {
+  content: '·';
+  position: absolute;
+  left: 4px;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.2;
+}
+
+.resource-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+  align-items: center;
+}
+
+.resource-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-right: 2px;
+}
+
+.resource {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  padding: 2px 8px;
+  background: var(--tag-bg);
+  border: 1px solid var(--border);
+  color: var(--ink2);
+}
+
+/* PYCHARM FOLDER STRUCTURE */
+.folder-structure {
+  background: #1e1e1e;
+  color: #d4d4d4;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  border: 1px solid var(--border);
+  line-height: 1.8;
+  overflow-x: auto;
+}
+
+.folder-structure .dir { color: #4ec9b0; }
+.folder-structure .file { color: #9cdcfe; }
+.folder-structure .comment { color: #6a9955; }
+
+/* PROJECT CARD */
+.project-card {
+  border: 1px solid var(--border);
+  padding: 16px 20px;
+  margin-top: 16px;
+  background: #fff8f0;
+}
+
+.project-title {
+  font-weight: 800;
+  font-size: 14px;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.project-desc {
+  font-size: 13px;
+  color: var(--ink2);
+}
+
+/* PHASE SUMMARY STRIP */
+.phase-summary {
+  display: flex;
+  gap: 0;
+  margin-bottom: 24px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.summary-cell {
+  flex: 1;
+  padding: 12px 14px;
+  border-right: 1px solid var(--border);
+  background: var(--paper);
+}
+.summary-cell:last-child { border-right: none; }
+
+.summary-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.summary-value {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--ink);
+}
+
+/* RULE BOX */
+.rule-box {
+  border: 2px solid var(--ink);
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  background: var(--paper);
+}
+
+.rule-box-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.rule-box p {
+  font-size: 13px;
+  color: var(--ink2);
+  line-height: 1.6;
+}
+
+.rule-box strong { color: var(--ink); }
+
+/* DAILY SCHEDULE */
+.daily-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin-bottom: 24px;
+}
+
+.daily-table th {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: left;
+  padding: 8px 12px;
+  border-bottom: 2px solid var(--ink);
+  background: var(--tag-bg);
+}
+
+.daily-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--ink2);
+  vertical-align: top;
+}
+
+.daily-table td:first-child {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+/* SECTION TITLE */
+.section-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 24px 0 12px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* FOOTER */
+footer {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px 28px 48px;
+  border-top: 2px solid var(--ink);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: gap;
+  gap: 16px;
+}
+
+.footer-name {
+  font-weight: 900;
+  font-size: 20px;
+  letter-spacing: -0.5px;
+}
+
+.footer-mono {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 1px;
+}
+
+@media (max-width: 600px) {
+  h1 { letter-spacing: -2px; }
+  .header-meta { display: none; }
+  .phase-summary { flex-wrap: wrap; }
+  .summary-cell { min-width: 45%; }
+  .folder-structure { font-size: 11px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="owner-tag">// Property of Galgallo — AI Engineer Roadmap — Do Not Lose This</div>
+  <div class="header-top">
+    <div>
+      <h1>13-MONTH<br><span>AI ENGINEER</span><br>MASTER GUIDE</h1>
+    </div>
+    <div class="header-meta">
+      <div class="big-num">13</div>
+      <div class="big-num-label">months</div>
+      <div style="margin-top:8px; font-family:'DM Mono',monospace; font-size:11px; color:var(--muted);">4hrs/day<br>May 2026 → June 2027</div>
+    </div>
+  </div>
+  <p class="header-desc">
+    Every phase. Every topic. Every resource. Every PyCharm folder. Exactly what to learn, where to learn it, and what to build. This document is your complete guide for the next 13 months. If you lose everything else, keep this.
+  </p>
+</header>
+
+<div class="legend-bar">
+  <span class="legend-title">Key</span>
+  <span class="badge badge-pycharm">⌨ PyCharm — Write Code</span>
+  <span class="badge badge-watch">▶ Watch — YouTube/Video</span>
+  <span class="badge badge-read">📖 Read — Docs/Book</span>
+  <span class="badge badge-practice">🎯 Practice — Build Project</span>
+  <span class="badge badge-notebook">📓 Jupyter Notebook</span>
+</div>
+
+<div class="controls">
+  <button class="ctrl" onclick="expandAll()">Expand All Phases</button>
+  <button class="ctrl outline" onclick="collapseAll()">Collapse All</button>
+</div>
+
+<div class="main">
+
+<!-- ============================================================ -->
+<!-- DAILY STRUCTURE -->
+<!-- ============================================================ -->
+<div class="section-title">Your Daily 4-Hour Structure — Every Day for 13 Months</div>
+<table class="daily-table">
+  <thead>
+    <tr>
+      <th>Time Block</th>
+      <th>Activity</th>
+      <th>What You Do</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Hour 1</td><td>Learn the Concept</td><td>Watch the tutorial OR read the documentation for today's topic. One topic only. Don't jump ahead.</td></tr>
+    <tr><td>Hour 2–3</td><td>Write the Code</td><td>Open PyCharm. Type every example yourself. Do NOT copy-paste. Break it. Fix it. Understand it.</td></tr>
+    <tr><td>Hour 4</td><td>Review + Push</td><td>Review what you wrote. Add comments explaining what you learned. git add → git commit → git push to GitHub.</td></tr>
+  </tbody>
+</table>
+
+<div class="rule-box">
+  <div class="rule-box-title">// The One Rule That Changes Everything</div>
+  <p><strong>Every day you code, you push to GitHub.</strong> Even one file. Even 10 lines. The green squares on your GitHub profile after 13 months are your CV. An employer seeing 300+ days of commits needs no other proof of commitment. Miss a day — that's okay. Never miss two in a row.</p>
+</div>
+
+<!-- ============================================================ -->
+<!-- PYCHARM MASTER FOLDER STRUCTURE -->
+<!-- ============================================================ -->
+<div class="section-title">Your PyCharm Project — Create This Structure on Day 1</div>
+<div class="folder-structure">
+<span class="dir">ai-engineer-journey/</span>                    <span class="comment"># Your main PyCharm project + GitHub repo</span>
+│
+├── <span class="dir">phase-01-foundation/</span>
+│   ├── <span class="dir">01-python-basics/</span>
+│   ├── <span class="dir">02-numpy-pandas/</span>          <span class="comment"># Learn NumPy BEFORE math so you can code the math</span>
+│   ├── <span class="dir">03-math-for-ai/</span>            <span class="comment"># Now use NumPy to code every math concept</span>
+│   ├── <span class="dir">04-visualization/</span>
+│   └── <span class="dir">05-linux-git/</span>
+│
+├── <span class="dir">phase-02-classical-ml/</span>
+│   ├── <span class="dir">01-ml-concepts/</span>
+│   ├── <span class="dir">02-supervised-learning/</span>
+│   ├── <span class="dir">03-unsupervised-learning/</span>
+│   ├── <span class="dir">04-model-evaluation/</span>
+│   └── <span class="dir">05-titanic-project/</span>         <span class="comment"># First real project</span>
+│
+├── <span class="dir">phase-03-deep-learning/</span>
+│   ├── <span class="dir">01-neural-net-scratch/</span>
+│   ├── <span class="dir">02-pytorch-basics/</span>
+│   ├── <span class="dir">03-computer-vision/</span>
+│   ├── <span class="dir">04-nlp-basics/</span>
+│   └── <span class="dir">05-image-classifier-project/</span>
+│
+├── <span class="dir">phase-04-llms-genai/</span>
+│   ├── <span class="dir">01-llm-fundamentals/</span>
+│   ├── <span class="dir">02-huggingface/</span>
+│   ├── <span class="dir">03-prompt-engineering/</span>
+│   ├── <span class="dir">04-rag-systems/</span>
+│   └── <span class="dir">05-ai-agent-project/</span>
+│
+├── <span class="dir">phase-05-mlops/</span>
+│   ├── <span class="dir">01-docker/</span>
+│   ├── <span class="dir">02-fastapi-serving/</span>
+│   ├── <span class="dir">03-cloud-deployment/</span>
+│   ├── <span class="dir">04-experiment-tracking/</span>
+│   └── <span class="dir">05-deployed-app-project/</span>
+│
+├── <span class="dir">phase-06-systems-design/</span>
+│   ├── <span class="dir">01-system-design/</span>
+│   ├── <span class="dir">02-fine-tuning/</span>
+│   ├── <span class="dir">03-ai-safety/</span>
+│   └── <span class="dir">04-capstone-project/</span>            <span class="comment"># Final portfolio project</span>
+│
+└── <span class="file">README.md</span>                           <span class="comment"># Your public profile — write this well</span>
+</div>
+
+<!-- ============================================================ -->
+<!-- PHASE 1 -->
+<!-- ============================================================ -->
+<div class="phase p1">
+  <div class="phase-header" onclick="togglePhase(this)">
+    <div class="phase-number">01</div>
+    <div class="phase-title-block">
+      <div class="phase-name">Foundation — Python, Math, Data & Tools</div>
+      <div class="phase-subtitle">MONTHS 1–2.5 &nbsp;·&nbsp; MAY 2026 – MID JULY 2026 &nbsp;·&nbsp; DO NOT RUSH THIS</div>
+    </div>
+    <div class="phase-toggle">+</div>
+  </div>
+  <div class="phase-body open">
+
+    <div class="phase-summary">
+      <div class="summary-cell"><div class="summary-label">Duration</div><div class="summary-value">2.5 Months</div></div>
+      <div class="summary-cell"><div class="summary-label">Hours</div><div class="summary-value">~300 hrs</div></div>
+      <div class="summary-cell"><div class="summary-label">PyCharm Folder</div><div class="summary-value">phase-01-foundation/</div></div>
+      <div class="summary-cell"><div class="summary-label">Income Unlock</div><div class="summary-value">Better annotation roles</div></div>
+    </div>
+
+    <!-- PYTHON BASICS -->
+    <div class="folder-block">
+      <div class="folder-header">
+        <div class="folder-name">
+          📁 phase-01-foundation / 01-python-basics /
+          <span>PyCharm folder — create one .py file per topic below</span>
+        </div>
+        <div class="badges">
+          <span class="badge badge-watch">▶ Watch</span>
+          <span class="badge badge-pycharm">⌨ PyCharm</span>
+        </div>
+      </div>
+      <div class="folder-body">
+
+        <div class="topic">
+          <div class="topic-name">1. Variables &amp; Data Types <span class="badge badge-pycharm" style="font-size:9px">variables.py</span></div>
+          <ul class="topic-tasks">
+            <li>What a variable is — a named box that stores a value</li>
+            <li>Data types: int (whole numbers), float (decimals), str (text), bool (True/False)</li>
+            <li>Type conversion: int("5"), str(10), float("3.14")</li>
+            <li>type() function — check what type a variable is</li>
+            <li>print() — display output. f-strings: print(f"My name is {name}")</li>
+            <li>input() — get input from user in the terminal</li>
+          </ul>
+          <div class="resource-row">
+            <span class="resource-label">Where:</span>
+            <span class="resource">W3Schools Python → Variables</span>
+            <span class="resource">Python.org Official Tutorial → Chapter 3</span>
+          </div>
+        </div>
+
+        <div class="topic">
+          <div class="topic-name">2. Strings <span class="badge badge-pycharm" style="font-size:9px">strings.py</span></div>
+          <ul class="topic-tasks">
+            <li>String methods: .upper(), .lower(), .strip(), .replace(), .split(), .join()</li>
+            <li>String slicing: name[0:3], name[-1], name[::2]</li>
+            <li>String formatting: f-strings (modern), .format() (older)</li>
+            <li>len() — get length of a string</li>
+            <li>Check if substring exists: "hello" in text</li>
+          </ul>
+          <div class="resource-row">
+            <span class="resource-label">Where:</span>
+            <span class="resource">W3Schools Python → Strings</span>
+          </div>
+        </div>
+
+        <div class="topic">
+          <div class="topic-name">3. Lists, Tuples, Sets, Dictionaries <span class="badge badge-pycharm" style="font-size:9px">collections.py</span></div>
+          <ul class="topic-tasks">
+            <li>List: ordered, changeable — fruits = ["mango", "apple"]. .append(), .remove(), .pop(), .sort()</li>
+            <li>Tuple: ordered, unchangeable — coordinates = (10, 20). Use for data that should not change.</li>
+            <li>Set: unordered, no duplicates — unique_nums = {1, 2, 3}. Good for removing duplicates.</li>
+            <li>Dictionary: key-value pairs — person = {"name": "Galgallo", "age": 20}. Access: person["name"]</li>
+            <li>Loop through each: for item in list, for key, value in dict.items()</li>
+            <li>Nested: list inside a list, dict inside a dict — understand how to access nested values</li>
+          </ul>
+          <div class="resource-row">
+            <span class="resource-label">Where:</span>
+            <span class="resource">W3Schools Python → Lists / Tuples / Sets / Dictionaries</span>
+          </div>
+        </div>
+
+        <div class="topic">
+          <div class="topic-name">4. Conditionals <span class="badge badge-pycharm" style="font-size:9px">conditionals.py</span></div>
+          <ul class="topic-tasks">
+            <li>if / elif / else structure — indentation is critical in Python (4 spaces)</li>
+            <li>Comparison operators: == != &gt; &lt; &gt;= &lt;=</li>
+            <li>Logical operators: and, or, not</li>
+            <li>Ternary: value = "yes" if condition else "no"</li>
+            <li>Membership: if item in list — if key in dict</li>
+          </ul>
+          <div class="resource-row">
+            <span class="resource-label">Where:</span>
+            <span class="resource">W3Schools Python → If...Else</span>
+          </div>
+        </div>
+
+        <div class="topic">
+          <div class="topic-name">5. Loops <span class="badge badge-pycharm" style="font-size:9px">loops.py</span></div>
+          <ul class="topic-tasks">
+            <li>for loop: for i in range(10): — for item in list:</li>
+            <li>while loop: while condition: — careful of infinite loops</li>
+            <li>break — exit loop early. continue — skip to next iteration</li>
+            <li>enumerate(): get index AND value — for i, item in enumerate(list)</li>
+            <li>zip(): loop two lists together — for a, b in zip(list1, list2)</li>
+            <li>List comprehension: squares = [x**2 for x in range(10)] — one line loop</li>
+          </ul>
+          <div class="resource-row">
+            <span class="resource-label">Where:</span>
+            <span class="resource">W3Schools Python → For Loops / While Loops</span>
+          </div>
+        </div>
+
+        <div class="topic">
+          <div class="topic-name">6. Functions <span class="badge badge-pycharm" style="font-size:9px">functions.py</span></div>
+          <ul class="topic-tasks">
+            <li>Define: def function_name(parameters): — return value</li>
+            <li>Default parameters: def greet(name="World"):</li>
+            <li>*args: accept any number of positional arguments</li>
+            <li>**kwargs: accept any number of keyword arguments</li>
+            <li>Lambda: square = lambda x: x**2 — small anonymous functions</li>
+            <li>map() and filter(): apply function to every item in a list</li>
+            <li>Scope: local vs global variables</li>
+          </ul>
+          <div class="resource-row">
+            <span class="resource-label">Where:</span>
+            <span class="resource">W3Schools Python → Functions</span>
+            <span class="resource">Corey Schafer Python Functions (YouTube)</span>
+          </div>
+        </div>
+
+        <div class="topic">
+          <div class="topic-name">7. Object Oriented Programming (OOP) <span class="badge badge-pycharm" style="font-size:9px">oop.py</span></div>
+          <ul class="topic-tasks">
+            <li>Class: blueprint for creating objects — class Dog:</li>
+            <li>__init__: constructor — runs when object is created</li>
+            <li>self: refers to the current instance of the class</li>
+            <li>Attributes: variables belonging to an object</li>
+            <li>Methods: functions belonging to a class</li>
+            <li>Inheritance: class Puppy(Dog): — child inherits parent methods</li>
+            <li>super(): call parent class constructor from child</li>
+            <li>Encapsulation: private attributes with _ prefix</li>
+          </ul>
+          <div class="resource-row">
+            <span class="resource-label">Where:</span>
+            <span class="resource">Corey Schafer OOP Series (YouTube — 6 videos)</span>
+            <span class="resource">W3Schools Python → Classes</span>
+          </div>
+        </div>
+
+        <div class="topic">
+          <div class="topic-name">8. File Handling &amp; Error Handling <span class="badge badge-pycharm" style="font-size:9px">files_errors.py</span></div>
+          <ul class="topic-tasks">
+            <li>Open file: with open("file.txt", "r") as f: — always use with statement</li>
+            <li>Read modes: "r" read, "w" write (overwrite), "a" append, "rb" read binary</li>
+            <li>f.read(), f.readline(), f.readlines() — different ways to read</li>
+            <li>try / except / finally — handle errors without crashing</li>
+            <li>Specific exceptions: except ValueError, except FileNotFoundError</li>
+            <li>raise: throw your own custom error</li>
+          </ul>
+          <div class="resource-row">
+            <span class="resource-label">Where:</span>
+            <span class="resource">W3Schools Python → File Handling / Try Except</span>
+          </div>
+        </div>
+
+        <div class="topic">
+          <div class="topic-name">9. Modules &amp; Packages <span class="badge badge-pycharm" style="font-size:9px">modules.py</span></div>
+          <ul class="topic-tasks">
+            <li>import math, import os, import sys — standard library modules</li>
+            <li>from module import function — import specific things</li>
+            <li>pip install package_name — install third-party packages</li>
+            <li>Create your own module: save code in file, import it in another file</li>
+            <li>Virtual environments: python -m venv env — isolate project dependencies</li>
+            <li>requirements.txt: pip freeze > requirements.txt — save all dependencies</li>
+          </ul>
+          <div class="resource-row">
+            <span class="resource-label">Where:</span>
+            <span class="resource">W3Schools Python → Modules</span>
+            <span class="resource">Real Python — Virtual Environments (article)</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-title">🎯 Phase 1 Python Project — Build a CLI Calculator + Student Grade Manager</div>
+          <div class="project-desc">Build two programs: (1) A calculator that takes two numbers and an operator from the user and returns the result. (2) A grade manager that stores student names and scores in a dictionary, calculates average, finds highest/lowest score, and saves results to a .txt file. Push both to GitHub in phase-01-foundation/01-python-basics/projects/</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- NUMPY PANDAS - TOPIC 2 -->
+    <div class="folder-block">
+      <div class="folder-header">
+        <div class="folder-name">
+          📁 phase-01-foundation / 02-numpy-pandas /
+          <span>Learn NumPy and Pandas FIRST — you will use NumPy to code all your math in topic 3</span>
+        </div>
+        <div class="badges">
+          <span class="badge badge-notebook">📓 Jupyter</span>
+          <span class="badge badge-read">📖 Docs</span>
+        </div>
+      </div>
+      <div class="folder-body">
+
+        <div class="topic">
+          <div class="topic-name">1. NumPy <span class="badge badge-notebook" style="font-size:9px">numpy_basics.ipynb</span></div>
+          <ul class="topic-tasks">
+            <li>Install: pip install numpy. Import: import numpy as np</li>
+            <li>Create arrays: np.array([1,2,3]), np.zeros((3,4)), np.ones((2,3)), np.arange(0,10,2), np.linspace(0,1,100)</li>
+            <li>Array attributes: .shape, .dtype, .ndim, .size</li>
+            <li>Indexing and slicing: arr[0], arr[1:3], arr[::2], 2D: arr[0, 1], arr[:, 0]</li>
+            <li>Reshape: arr.reshape(3,4) — change shape without changing data</li>
+            <li>Math operations: +, -, *, / work element-wise. np.sum(), np.mean(), np.std(), np.max(), np.min()</li>
+            <li>Broadcasting: operations between arrays of different shapes — understand the rules</li>
+            <li>Boolean indexing: arr[arr > 5] — filter elements by condition</li>
+            <li>Random: np.random.rand(), np.random.randn(), np.random.randint(), np.random.seed()</li>
+            <li>Linear algebra with NumPy: np.dot(), np.matmul(), np.linalg.inv(), np.linalg.norm()</li>
+          </ul>
+          <div class="resource-row">
+            <span class="resource-label">Read:</span>
+            <span class="resource">NumPy Official Quickstart (numpy.org/doc)</span>
+            <span class="resource">Keith Galli — NumPy Tutorial (YouTube)</span>
+          </div>
+        </div>
+
+        <div class="topic">
+          <div class="topic-name">2. Pandas <span class="badge badge-notebook" style="font-size:9px">pandas_basics.ipynb</span></div>
+          <ul class="topic-tasks">
+            <li>Install: pip install pandas. Import: import pandas as pd</li>
+            <li>Create DataFrame: pd.DataFrame(dict), pd.read_csv("file.csv"), pd.read_excel(), pd.read_json()</li>
+            <li>Explore data: df.head(10), df.tail(), df.shape, df.columns, df.dtypes, df.info(), df.describe()</li>
+            <li>Select: df["column"], df[["col1","col2"]], df.iloc[0:5] (by position), df.loc[0:5] (by label)</li>
+            <li>Filter rows: df[df["age"] > 25], df[(df["age"] > 25) &amp; (df["city"] == "Nairobi")]</li>
+            <li>Missing values: df.isnull().sum(), df.dropna(), df.fillna(value)</li>
+            <li>Add/remove columns: df["new_col"] = values, df.drop("col", axis=1)</li>
+            <li>Group operations: df.groupby("city")["salary"].mean()</li>
+            <li>Merge DataFrames: pd.merge(df1, df2, on="id", how="inner/left/right/outer")</li>
+            <li>Sort: df.sort_values("salary", ascending=False)</li>
+            <li>Apply custom function: df["col"].apply(lambda x: x*2)</li>
+            <li>Export: df.to_csv("output.csv", index=False)</li>
+          </ul>
+          <div class="resource-row">
+            <span class="resource-label">Watch:</span>
+            <span class="resource">Corey Schafer — Pandas Series (YouTube — 10 videos)</span>
+          </div>
+          <div class="resource-row">
+            <span class="resource-label">Practice:</span>
+            <span class="resource">Kaggle Titanic Dataset — download and explore with Pandas</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- MATH - TOPIC 3 -->
+    <div class="folder-block">
+      <div class="folder-header">
+        <div class="folder-name">
+          📁 phase-01-foundation / 03-math-for-ai /
+          <span>Watch concept video first, then code it in NumPy immediately — you already know NumPy from topic 2</span>
+        </div>
+        <div class="badges">
+          <span class="badge badge-watch">▶ Watch</span>
+          <span class="badge badge-read">📖 Read</span>
+          <span class="badge badge-pycharm">⌨ PyCharm</span>
+        </div>
+      </div>
+      <div class="folder-body">
+
+        <div class="topic">
+          <div class="topic-name">1. Linear Algebra <span class="badge badge-pycharm" style="font-size:9px">linear_algebra.py</span></div>
+          <ul class="topic-tasks">
+            <li>Scalars, vectors, matrices — what each one is with real examples</li>
+            <li>Vector addition and scalar multiplication — understand geometrically</li>
+            <li>Dot product: a · b — multiply corresponding elements, sum them. Critical for neural nets.</li>
+            <li>Matrix multiplication: rows × columns — understand the rules (m×n) × (n×p) = (m×p)</li>
+            <li>Transpose: flip rows and columns — A.T in NumPy</li>
+            <li>Identity matrix: like multiplying by 1</li>
+            <li>Inverse matrix: A⁻¹ such that A × A⁻¹ = Identity</li>
+            <li>Eigenvalues and eigenvectors: understand conceptually — used in PCA</li>
+            <li>Code everything in NumPy: np.dot(), np.matmul(), np.linalg.inv(), np.linalg.eig()</li>
+          </ul>
+          <div class="resource-row">
+            <span class="resource-label">Watch:</span>
+            <span class="resource">3Blue1Brown — Essence of Linear Algebra (YouTube playlist — 15 videos)</span>
+          </div>
+          <div class="resource-row">
+            <span class="resource-label">Read:</span>
+            <span class="resource">Gilbert Strang — Introduction to Linear Algebra (free at math.mit.edu)</span>
+          </div>
+        </div>
+
+        <div class="topic">
+          <div class="topic-name">2. Calculus <span class="badge badge-pycharm" style="font-size:9px">calculus.py</span></div>
+          <ul class="topic-tasks">
+            <li>What a derivative is: rate of change — slope of a curve at any point</li>
+            <li>Basic derivative rules: power rule, chain rule, product rule</li>
+            <li>Partial derivatives: derivative of a function with multiple variables w.r.t. one variable</li>
+            <li>Gradient: vector of all partial derivatives — points in direction of steepest increase</li>
+            <li>Gradient descent: move opposite to gradient to minimize a function — this IS neural network training</li>
+            <li>Learning rate: how big each step is in gradient descent</li>
+            <li>Local minimum vs global minimum — why this matters for training</li>
+            <li>Jacobian matrix: matrix of all partial derivatives — used in backpropagation</li>
+            <li>Use sympy library in Python to compute symbolic derivatives and verify your work</li>
+          </ul>
+          <div class="resource-row">
+            <span class="resource-label">Watch:</span>
+            <span class="resource">3Blue1Brown — Essence of Calculus (YouTube playlist — 12 videos)</span>
+          </div>
+          <div class="resource-row">
+            <span class="resource-label">Watch:</span>
+            <span class="resource">StatQuest — Gradient Descent (YouTube)</span>
+          </div>
+        </div>
+
+        <div class="topic">
+          <div class="topic-name">3. Statistics &amp; Probability <span class="badge badge-pycharm" style="font-size:9px">statistics.py</span></div>
+          <ul class="topic-tasks">
+            <li>Descriptive stats: mean, median, mode, variance, standard deviation</li>
+            <li>Distributions: normal (bell curve), uniform, binomial, Poisson</li>
+            <li>Z-score: how many standard deviations from the mean</li>
+            <li>Probability basics: P(A), P(A and B), P(A or B), P(A|B) conditional probability</li>
+            <li>Bayes Theorem: P(A|B) = P(B|A) × P(A) / P(B) — understand this deeply</li>
+            <li>Correlation vs causation — critical thinking for data analysis</li>
+            <li>Hypothesis testing: null hypothesis, p-value, significance level</li>
+            <li>Information theory: entropy, KL divergence — used in ML loss functions</li>
+            <li>Code everything using Python's statistics module and scipy.stats</li>
+          </ul>
+          <div class="resource-row">
+            <span class="resource-label">Watch:</span>
+            <span class="resource">StatQuest with Josh Starmer — Statistics Fundamentals (YouTube playlist)</span>
+          </div>
+          <div class="resource-row">
+            <span class="resource-label">Read:</span>
+            <span class="resource">Think Stats by Allen Downey (free at greenteapress.com)</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- VISUALIZATION -->
+    <div class="folder-block">
+      <div class="folder-header">
+        <div class="folder-name">
+          📁 phase-01-foundation / 04-visualization /
+          <span>Use Jupyter Notebook — charts render inline</span>
+        </div>
+        <div class="badges">
+          <span class="badge badge-notebook">📓 Jupyter</span>
+          <span class="badge badge-practice">🎯 Practice</span>
+        </div>
+      </div>
+      <div class="folder-body">
+
+        <div class="topic">
+          <div class="topic-name">1. Matplotlib <span class="badge badge-notebook" style="font-size:9px">matplotlib.ipynb</span></div>
+          <ul class="topic-tasks">
+            <li>Install: pip install matplotlib. Import: import matplotlib.pyplot as plt</li>
+            <li>Line plot: plt.plot(x, y) — for trends over time</li>
+            <li>Bar chart: plt.bar(categories, values) — for comparing categories</li>
+            <li>Histogram: plt.hist(data, bins=20) — for distributions</li>
+            <li>Scatter plot: plt.scatter(x, y) — for relationships between two variables</li>
+            <li>Labels: plt.xlabel(), plt.ylabel(), plt.title(), plt.legend()</li>
+            <li>Subplots: fig, axes = plt.subplots(2, 3) — multiple charts in one figure</li>
+            <li>Save: plt.savefig("chart.png", dpi=150)</li>
+          </ul>
+          <div class="resource-row">
+            <span class="resource-label">Read:</span>
+            <span class="resource">Matplotlib Official Tutorials (matplotlib.org)</span>
+          </div>
+        </div>
+
+        <div class="topic">
+          <div class="topic-name">2. Seaborn <span class="badge badge-notebook" style="font-size:9px">seaborn.ipynb</span></div>
+          <ul class="topic-tasks">
+            <li>Install: pip install seaborn. Import: import seaborn as sns</li>
+            <li>Heatmap: sns.heatmap(df.corr(), annot=True) — show correlations</li>
+            <li>Pairplot: sns.pairplot(df) — scatter plot matrix for all column pairs</li>
+            <li>Box plot: sns.boxplot(x="category", y="value", data=df)</li>
+            <li>Distribution: sns.histplot(), sns.kdeplot() — smooth distribution curves</li>
+            <li>Count plot: sns.countplot(x="category", data=df)</li>
+            <li>Practice: take the Titanic dataset and produce 10 different visualizations</li>
+          </ul>
+          <div class="resource-row">
+            <span class="resource-label">Read:</span>
+            <span class="resource">Seaborn Official Gallery (seaborn.pydata.org)</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- LINUX GIT -->
+    <div class="folder-block">
+      <div class="folder-header">
+        <div class="folder-name">
+          📁 phase-01-foundation / 05-linux-git /
+          <span>Terminal practice — not PyCharm. Use Kali Linux VM or Windows terminal (Git Bash)</span>
+        </div>
+        <div class="badges">
+          <span class="badge badge-watch">▶ Watch</span>
+          <span class="badge badge-practice">🎯 Terminal</span>
+        </div>
+      </div>
+      <div class="folder-body">
+
+        <div class="topic">
+          <div class="topic-name">1. Linux Command Line Basics</div>
+          <ul class="topic-tasks">
+            <li>Navigation: pwd, cd, ls -la, cd .., cd ~</li>
+            <li>File ops: touch, mkdir, cp, mv, rm, rm -rf (careful!), cat, less, head, tail</li>
+            <li>Find files: find /path -name "*.txt", locate filename</li>
+            <li>Permissions: chmod 755 file, chown user:group file, understand rwx</li>
+            <li>Users: whoami, id, su, sudo, passwd</li>
+            <li>Processes: ps aux, top, kill PID, killall name</li>
+            <li>Text processing: grep "pattern" file, grep -r "pattern" /, cat file | grep "word"</li>
+            <li>Pipes: command1 | command2 — output of one becomes input of next</li>
+            <li>Redirection: command > file.txt (overwrite), command >> file.txt (append)</li>
+            <li>Package management: sudo apt update, sudo apt install python3, sudo apt remove</li>
+          </ul>
+          <div class="resource-row">
+            <span class="resource-label">Practice:</span>
+            <span class="resource">OverTheWire: Bandit (overthewire.org) — complete all 34 levels</span>
+          </div>
+        </div>
+
+        <div class="topic">
+          <div class="topic-name">2. Git &amp; GitHub — Daily Workflow</div>
+          <ul class="topic-tasks">
+            <li>git init — initialize a new repository in current folder</li>
+            <li>git clone URL — download a repository from GitHub</li>
+            <li>git status — see what files changed</li>
+            <li>git add . — stage all changes for commit</li>
+            <li>git commit -m "message" — save snapshot with description</li>
+            <li>git push — upload commits to GitHub</li>
+            <li>git pull — download latest changes from GitHub</li>
+            <li>git branch — list branches. git branch name — create. git checkout name — switch</li>
+            <li>git merge branch — merge branch into current</li>
+            <li>git log — see history of commits</li>
+            <li>git diff — see what changed since last commit</li>
+            <li>.gitignore — list files Git should never track (env/, __pycache__/, .env)</li>
+          </ul>
+          <div class="resource-row">
+            <span class="resource-label">Watch:</span>
+            <span class="resource">Traversy Media — Git &amp; GitHub Crash Course (YouTube)</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PHASE 2 -->
+<!-- ============================================================ -->
+<div class="phase p2">
+  <div class="phase-header" onclick="togglePhase(this)">
+    <div class="phase-number">02</div>
+    <div class="phase-title-block">
+      <div class="phase-name">Classical Machine Learning</div>
+      <div class="phase-subtitle">MONTHS 2.5–4.5 &nbsp;·&nbsp; MID JULY – SEPT 2026 &nbsp;·&nbsp; BUILD INTUITION BEFORE NEURAL NETS</div>
+    </div>
+    <div class="phase-toggle">+</div>
+  </div>
+  <div class="phase-body">
+
+    <div class="phase-summary">
+      <div class="summary-cell"><div class="summary-label">Duration</div><div class="summary-value">2 Months</div></div>
+      <div class="summary-cell"><div class="summary-label">Hours</div><div class="summary-value">~240 hrs</div></div>
+      <div class="summary-cell"><div class="summary-label">PyCharm Folder</div><div class="summary-value">phase-02-classical-ml/</div></div>
+      <div class="summary-cell"><div class="summary-label">Key Library</div><div class="summary-value">scikit-learn</div></div>
+    </div>
+
+    <div class="folder-block">
+      <div class="folder-header">
+        <div class="folder-name">📁 phase-02-classical-ml / 01-ml-concepts / <span>Concepts first — code after. Understand before implementing.</span></div>
+        <div class="badges"><span class="badge badge-watch">▶ Watch</span><span class="badge badge-read">📖 Read</span></div>
+      </div>
+      <div class="folder-body">
+        <div class="topic">
+          <div class="topic-name">Core ML Concepts to Understand <span class="badge badge-pycharm" style="font-size:9px">concepts.py</span></div>
+          <ul class="topic-tasks">
+            <li>What is machine learning: giving computers the ability to learn from data without being explicitly programmed</li>
+            <li>Supervised learning: input → label pairs. Model learns the mapping. Example: email → spam/not spam</li>
+            <li>Unsupervised learning: input only, no labels. Model finds patterns. Example: customer segments</li>
+            <li>Training set, validation set, test set — why you need all three and what each is for</li>
+            <li>Features (X): inputs to the model. Labels (y): what you're predicting</li>
+            <li>Loss function: measures how wrong your model is. Goal: minimize this.</li>
+            <li>Gradient descent: algorithm that minimizes loss by adjusting model parameters step by step</li>
+            <li>Learning rate: step size in gradient descent. Too large = overshoot. Too small = too slow.</li>
+            <li>Overfitting: model memorizes training data, fails on new data — too complex</li>
+            <li>Underfitting: model too simple, can't capture patterns even in training data</li>
+            <li>Bias-variance tradeoff: high bias = underfitting. High variance = overfitting. Find the balance.</li>
+            <li>Hyperparameters: settings you choose before training (learning rate, depth). Parameters: learned during training (weights)</li>
+          </ul>
+          <div class="resource-row">
+            <span class="resource-label">Watch:</span>
+            <span class="resource">StatQuest — Machine Learning Fundamentals (YouTube playlist)</span>
+            <span class="resource">3Blue1Brown — Neural Networks chapter 1 (even for classical ML intuition)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="folder-block">
+      <div class="folder-header">
+        <div class="folder-name">📁 phase-02-classical-ml / 02-supervised-learning / <span>One algorithm per file. Fit, predict, evaluate every single one.</span></div>
+        <div class="badges"><span class="badge badge-notebook">📓 Jupyter</span><span class="badge badge-pycharm">⌨ PyCharm</span></div>
+      </div>
+      <div class="folder-body">
+        <div class="topic">
+          <div class="topic-name">Install scikit-learn first: <code style="background:var(--tag-bg);padding:2px 6px;font-family:'DM Mono',monospace;font-size:12px;">pip install scikit-learn</code></div>
+          <ul class="topic-tasks">
+            <li><strong>linear_regression.py</strong> — predict house prices. Understand coefficients, MSE loss, R² score</li>
+            <li><strong>logistic_regression.py</strong> — predict spam/not spam. Understand sigmoid, probability output, log loss</li>
+            <li><strong>decision_tree.py</strong> — understand splits, Gini impurity, max_depth, visualize the tree</li>
+            <li><strong>random_forest.py</strong> — ensemble of trees, why it beats one tree, feature importance</li>
+            <li><strong>gradient_boosting.py</strong> — XGBoost and LightGBM. Sequential trees. Powerful on tabular data.</li>
+            <li><strong>svm.py</strong> — Support Vector Machine. Margin maximization. Kernel trick for non-linear data.</li>
+            <li><strong>knn.py</strong> — K-Nearest Neighbors. Classify by proximity. Understand k and distance metrics.</li>
+            <li><strong>naive_bayes.py</strong> — probabilistic classifier. Fast, good for text classification.</li>
+            <li>For EVERY algorithm: from sklearn import → fit on training data → predict on test → evaluate → tune</li>
+          </ul>
+          <div class="resource-row">
+            <span class="resource-label">Install:</span>
+            <span class="resource">pip install scikit-learn xgboost lightgbm</span>
+          </div>
+          <div class="resource-row">
+            <span class="resource-label">Read:</span>
+            <span class="resource">scikit-learn official documentation (scikit-learn.org) — for every algorithm</span>
+            <span class="resource">StatQuest — each algorithm has a dedicated video</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="folder-block">
+      <div class="folder-header">
+        <div class="folder-name">📁 phase-02-classical-ml / 03-unsupervised-learning / </div>
+        <div class="badges"><span class="badge badge-notebook">📓 Jupyter</span></div>
+      </div>
+      <div class="folder-body">
+        <div class="topic">
+          <div class="topic-name">Unsupervised Algorithms</div>
+          <ul class="topic-tasks">
+            <li><strong>kmeans.py</strong> — K-Means clustering. Understand centroids, inertia, elbow method to find k</li>
+            <li><strong>dbscan.py</strong> — density-based clustering. Handles noise and irregular shapes. No k needed.</li>
+            <li><strong>pca.py</strong> — Principal Component Analysis. Reduce dimensions while preserving variance. Visualize high-D data in 2D.</li>
+            <li><strong>tsne_umap.py</strong> — t-SNE and UMAP. Visualize high-dimensional data. See clusters in 2D.</li>
+          </ul>
+          <div class="resource-row">
+            <span class="resource-label">Watch:</span>
+            <span class="resource">StatQuest — PCA, K-Means, t-SNE (YouTube — separate videos)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="folder-block">
+      <div class="folder-header">
+        <div class="folder-name">📁 phase-02-classical-ml / 04-model-evaluation / </div>
+        <div class="badges"><span class="badge badge-pycharm">⌨ PyCharm</span></div>
+      </div>
+      <div class="folder-body">
+        <div class="topic">
+          <div class="topic-name">Evaluation Metrics &amp; Validation <span class="badge badge-pycharm" style="font-size:9px">evaluation.py</span></div>
+          <ul class="topic-tasks">
+            <li>Regression: MAE (mean absolute error), MSE (mean squared error), RMSE, R² — understand each</li>
+            <li>Classification: Accuracy, Precision, Recall, F1-Score — when each matters</li>
+            <li>Confusion Matrix: True Positives, False Positives, True Negatives, False Negatives — draw this out</li>
+            <li>ROC Curve and AUC score — how to plot and read it</li>
+            <li>When accuracy is misleading: 99% of emails are not spam → 99% accuracy by guessing "not spam" always</li>
+            <li>Cross-validation: k-fold CV — split data k ways, train k times, average performance. More reliable than one split.</li>
+            <li>GridSearchCV: try every combination of hyperparameters — find the best</li>
+            <li>RandomizedSearchCV: try random combinations — faster than grid search</li>
+          </ul>
+          <div class="resource-row">
+            <span class="resource-label">Install:</span>
+            <span class="resource">pip install optuna</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="folder-block">
+      <div class="folder-header">
+        <div class="folder-name">📁 phase-02-classical-ml / 05-titanic-project / <span>🎯 First complete end-to-end ML project</span></div>
+        <div class="badges"><span class="badge badge-practice">🎯 Build</span><span class="badge badge-notebook">📓 Jupyter</span></div>
+      </div>
+      <div class="folder-body">
+        <div class="project-card">
+          <div class="project-title">🎯 Titanic Survival Prediction — Complete Pipeline</div>
+          <div class="project-desc">Download the Titanic dataset from Kaggle. Step 1: EDA — explore all columns, visualize survival rates by gender/class/age. Step 2: Clean — handle missing Age values (fill with median), drop Cabin (too many nulls), encode Sex and Embarked as numbers. Step 3: Feature engineering — create FamilySize = SibSp + Parch. Step 4: Train 5 different models and compare. Step 5: Tune the best with cross-validation. Step 6: Write a README explaining what you did, what you found, what you'd improve. Push everything to GitHub. This is your first portfolio piece.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PHASE 3 -->
+<!-- ============================================================ -->
+<div class="phase p3">
+  <div class="phase-header" onclick="togglePhase(this)">
+    <div class="phase-number">03</div>
+    <div class="phase-title-block">
+      <div class="phase-name">Deep Learning &amp; Neural Networks</div>
+      <div class="phase-subtitle">MONTHS 4.5–7 &nbsp;·&nbsp; OCT 2026 – DEC 2026 &nbsp;·&nbsp; THE ENGINE BEHIND MODERN AI</div>
+    </div>
+    <div class="phase-toggle">+</div>
+  </div>
+  <div class="phase-body">
+
+    <div class="phase-summary">
+      <div class="summary-cell"><div class="summary-label">Duration</div><div class="summary-value">2.5 Months</div></div>
+      <div class="summary-cell"><div class="summary-label">Hours</div><div class="summary-value">~300 hrs</div></div>
+      <div class="summary-cell"><div class="summary-label">PyCharm Folder</div><div class="summary-value">phase-03-deep-learning/</div></div>
+      <div class="summary-cell"><div class="summary-label">Key Library</div><div class="summary-value">PyTorch</div></div>
+    </div>
+
+    <div class="folder-block">
+      <div class="folder-header">
+        <div class="folder-name">📁 phase-03-deep-learning / 01-neural-net-scratch / <span>Build from scratch with NumPy only — no PyTorch. Just once. Understand everything.</span></div>
+        <div class="badges"><span class="badge badge-pycharm">⌨ PyCharm</span><span class="badge badge-watch">▶ Watch</span></div>
+      </div>
+      <div class="folder-body">
+        <div class="topic">
+          <div class="topic-name">Neural Network from Scratch <span class="badge badge-pycharm" style="font-size:9px">neural_net_scratch.py</span></div>
+          <ul class="topic-tasks">
+            <li>A single neuron: inputs × weights + bias → activation function → output</li>
+            <li>Activation functions: ReLU (max(0,x)), Sigmoid (1/(1+e^-x)), Tanh, Softmax</li>
+            <li>Forward pass: data flows layer by layer to produce prediction</li>
+            <li>Loss function: MSE for regression, Cross-Entropy for classification — compute the error</li>
+            <li>Backpropagation: compute gradient of loss w.r.t. every weight using chain rule</li>
+            <li>Weight update: w = w - learning_rate × gradient</li>
+            <li>Build: 2-layer neural net in pure NumPy that learns XOR problem</li>
+            <li>Watch Andrej Karpathy's micrograd video first — he builds this exact thing</li>
+          </ul>
+          <div class="resource-row">
+            <span class="resource-label">Watch:</span>
+            <span class="resource">Andrej Karpathy — micrograd (YouTube) — MANDATORY</span>
+            <span class="resource">3Blue1Brown — Neural Networks playlist (YouTube)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="folder-block">
+      <div class="folder-header">
+        <div class="folder-name">📁 phase-03-deep-learning / 02-pytorch-basics / <span>Install: pip install torch torchvision</span></div>
+        <div class="badges"><span class="badge badge-pycharm">⌨ PyCharm</span><span class="badge badge-read">📖 Docs</span></div>
+      </div>
+      <div class="folder-body">
+        <div class="topic">
+          <div class="topic-name">PyTorch Core Skills</div>
+          <ul class="topic-tasks">
+            <li><strong>tensors.py</strong> — create tensors, shapes, dtypes. torch.tensor(), torch.zeros(), torch.randn(). Move to GPU: tensor.to('cuda')</li>
+            <li><strong>autograd.py</strong> — automatic differentiation. requires_grad=True. .backward() computes gradients. .grad accesses them.</li>
+            <li><strong>nn_module.py</strong> — build models by subclassing nn.Module. Define layers in __init__. Define forward pass in forward().</li>
+            <li><strong>layers.py</strong> — nn.Linear (fully connected), nn.Conv2d (convolution), nn.LSTM, nn.Dropout, nn.BatchNorm1d</li>
+            <li><strong>losses.py</strong> — nn.CrossEntropyLoss, nn.MSELoss, nn.BCELoss — when to use each</li>
+            <li><strong>optimizers.py</strong> — torch.optim.Adam (most common), SGD, RMSprop. Understand momentum and weight decay.</li>
+            <li><strong>dataloader.py</strong> — Dataset class (implement __len__ and __getitem__), DataLoader (batch, shuffle, num_workers)</li>
+            <li><strong>training_loop.py</strong> — the standard loop: optimizer.zero_grad() → output = model(X) → loss = criterion(output, y) → loss.backward() → optimizer.step()</li>
+            <li><strong>save_load.py</strong> — torch.save(model.state_dict(), "model.pth"), model.load_state_dict(torch.load("model.pth"))</li>
+          </ul>
+          <div class="resource-row">
+            <span class="resource-label">Watch:</span>
+            <span class="resource">Patrick Loeber — PyTorch Tutorials (YouTube playlist)</span>
+            <span class="resource">Andrej Karpathy — Neural Nets Zero to Hero (YouTube)</span>
+          </div>
+          <div class="resource-row">
+            <span class="resource-label">Read:</span>
+            <span class="resource">PyTorch Official Tutorials (pytorch.org/tutorials)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="folder-block">
+      <div class="folder-header">
+        <div class="folder-name">📁 phase-03-deep-learning / 03-computer-vision / <span>Use Google Colab for free GPU — colab.research.google.com</span></div>
+        <div class="badges"><span class="badge badge-notebook">📓 Colab</span><span class="badge badge-practice">🎯 Build</span></div>
+      </div>
+      <div class="folder-body">
+        <div class="topic">
+          <div class="topic-name">CNN &amp; Computer Vision <span class="badge badge-notebook" style="font-size:9px">cnn.ipynb (Colab)</span></div>
+          <ul class="topic-tasks">
+            <li>Convolution: filter slides over image, detects edges and features. Understand kernel, stride, padding.</li>
+            <li>Pooling: MaxPool2d reduces spatial size. Keeps most important features. Reduces computation.</li>
+            <li>Classic architectures: LeNet → AlexNet → VGG → ResNet. Understand skip connections in ResNet.</li>
+            <li>torchvision: datasets (CIFAR10, MNIST, ImageNet), transforms (Resize, Normalize, RandomFlip), pretrained models</li>
+            <li>Transfer Learning: load pretrained ResNet50, freeze all layers, replace final layer for your classes, train only final layer</li>
+            <li>Data augmentation: RandomHorizontalFlip, RandomCrop, ColorJitter — prevents overfitting on small datasets</li>
+            <li>Fine-tuning: unfreeze some layers after initial training, train with very small learning rate</li>
+          </ul>
+          <div class="resource-row">
+            <span class="resource-label">Watch:</span>
+            <span class="resource">Aladdin Persson — PyTorch CNN Tutorial (YouTube)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="folder-block">
+      <div class="folder-header">
+        <div class="folder-name">📁 phase-03-deep-learning / 04-nlp-basics / <span>Path to transformers and LLMs — understand sequence modeling first</span></div>
+        <div class="badges"><span class="badge badge-pycharm">⌨ PyCharm</span><span class="badge badge-watch">▶ Watch</span></div>
+      </div>
+      <div class="folder-body">
+        <div class="topic">
+          <div class="topic-name">NLP Fundamentals <span class="badge badge-pycharm" style="font-size:9px">nlp_basics.py</span></div>
+          <ul class="topic-tasks">
+            <li>Tokenization: split text into tokens (words or subwords). Install: pip install nltk spacy</li>
+            <li>Text cleaning: lowercase, remove punctuation, remove stopwords, stemming/lemmatization</li>
+            <li>Bag of Words: represent text as word count vector. sklearn's CountVectorizer.</li>
+            <li>TF-IDF: weight words by how unique they are to a document. sklearn's TfidfVectorizer.</li>
+            <li>Word Embeddings: Word2Vec, GloVe — represent words as dense vectors where similar words are close</li>
+            <li>RNN: processes sequence one step at a time, carries hidden state. Suffers vanishing gradient on long sequences.</li>
+            <li>LSTM: Long Short-Term Memory. Cell state solves vanishing gradient. Gates control information flow.</li>
+            <li>Attention mechanism: instead of one hidden state, attend to all positions simultaneously. WHY attention was invented.</li>
+            <li>Transformer overview: self-attention + positional encoding + feed-forward layers. This is what GPT is built on.</li>
+          </ul>
+          <div class="resource-row">
+            <span class="resource-label">Watch:</span>
+            <span class="resource">Andrej Karpathy — makemore series (YouTube) — builds language model from scratch</span>
+            <span class="resource">StatQuest — RNN and LSTM (YouTube)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="folder-block">
+      <div class="folder-header">
+        <div class="folder-name">📁 phase-03-deep-learning / 05-image-classifier-project / <span>🎯 Second portfolio project</span></div>
+        <div class="badges"><span class="badge badge-practice">🎯 Build</span></div>
+      </div>
+      <div class="folder-body">
+        <div class="project-card">
+          <div class="project-title">🎯 Custom Image Classifier — Transfer Learning Project</div>
+          <div class="project-desc">Pick any image classification task you're interested in (wildlife, food, plants — anything with images you can find). Collect or download 500+ images across 3+ classes. Use torchvision to load a pretrained ResNet50. Replace the final layer for your number of classes. Train on Google Colab (free GPU). Evaluate accuracy, plot confusion matrix. Add a simple prediction function: pass any image → model returns class name + confidence %. Push to GitHub with a proper README and sample predictions shown.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PHASE 4 -->
+<!-- ============================================================ -->
+<div class="phase p4">
+  <div class="phase-header" onclick="togglePhase(this)">
+    <div class="phase-number">04</div>
+    <div class="phase-title-block">
+      <div class="phase-name">LLMs &amp; Generative AI</div>
+      <div class="phase-subtitle">MONTHS 7–9.5 &nbsp;·&nbsp; JAN 2027 – MID MAR 2027 &nbsp;·&nbsp; WHERE THE JOBS ARE RIGHT NOW</div>
+    </div>
+    <div class="phase-toggle">+</div>
+  </div>
+  <div class="phase-body">
+
+    <div class="phase-summary">
+      <div class="summary-cell"><div class="summary-label">Duration</div><div class="summary-value">2.5 Months</div></div>
+      <div class="summary-cell"><div class="summary-label">Hours</div><div class="summary-value">~300 hrs</div></div>
+      <div class="summary-cell"><div class="summary-label">PyCharm Folder</div><div class="summary-value">phase-04-llms-genai/</div></div>
+      <div class="summary-cell"><div class="summary-label">Income Unlock</div><div class="summary-value">AI Engineer roles begin here</div></div>
+    </div>
+
+    <div class="folder-block">
+      <div class="folder-header">
+        <div class="folder-name">📁 phase-04-llms-genai / 01-llm-fundamentals / <span>Understand what an LLM actually is before using APIs</span></div>
+        <div class="badges"><span class="badge badge-watch">▶ Watch</span><span class="badge badge-read">📖 Papers</span></div>
+      </div>
+      <div class="folder-body">
+        <div class="topic">
+          <div class="topic-name">How LLMs Actually Work <span class="badge badge-pycharm" style="font-size:9px">llm_concepts.py</span></div>
+          <ul class="topic-tasks">
+            <li>Transformer architecture: encoder-only (BERT for understanding), decoder-only (GPT for generation), encoder-decoder (T5 for translation)</li>
+            <li>Self-attention: Query, Key, Value matrices. Attention score = softmax(QK^T / √d_k) × V</li>
+            <li>Multi-head attention: run attention multiple times in parallel, different learned projections</li>
+            <li>Positional encoding: how the model knows word order (sin/cos functions added to embeddings)</li>
+            <li>Tokenization: BPE (Byte Pair Encoding) — text → subword tokens → integer IDs</li>
+            <li>Context window: maximum tokens model can process at once — why it's limited</li>
+            <li>Pretraining: next token prediction on internet-scale text — this is how GPT learned everything</li>
+            <li>Temperature: controls randomness. 0 = deterministic, 1 = balanced, 2 = very random</li>
+            <li>Top-k and top-p sampling: limit token candidates to most likely k tokens, or top probability mass p</li>
+            <li>Read the paper: "Attention Is All You Need" (2017) — the original transformer paper</li>
+          </ul>
+          <div class="resource-row">
+            <span class="resource-label">Watch:</span>
+            <span class="resource">Andrej Karpathy — Let's build GPT from scratch (YouTube) — MANDATORY</span>
+            <span class="resource">3Blue1Brown — Attention in transformers (YouTube)</span>
+          </div>
+          <div class="resource-row">
+            <span class="resource-label">Read:</span>
+            <span class="resource">Attention Is All You Need (arxiv.org/abs/1706.03762)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="folder-block">
+      <div class="folder-header">
+        <div class="folder-name">📁 phase-04-llms-genai / 02-huggingface / <span>Install: pip install transformers datasets peft</span></div>
+        <div class="badges"><span class="badge badge-pycharm">⌨ PyCharm</span><span class="badge badge-notebook">📓 Colab</span></div>
+      </div>
+      <div class="folder-body">
+        <div class="topic">
+          <div class="topic-name">Hugging Face Ecosystem <span class="badge badge-pycharm" style="font-size:9px">huggingface_basics.py</span></div>
+          <ul class="topic-tasks">
+            <li>Hub: browse huggingface.co/models — thousands of pretrained models. Download with from_pretrained()</li>
+            <li>AutoTokenizer: tokenize text for any model. AutoModel: load any model architecture automatically.</li>
+            <li>Pipeline API: one line inference — pipeline("sentiment-analysis")("I love this!")</li>
+            <li>Available pipelines: text-generation, summarization, translation, question-answering, NER, zero-shot-classification</li>
+            <li>datasets library: load_dataset("imdb"), dataset.map(), dataset.filter(), dataset.train_test_split()</li>
+            <li>Trainer API: TrainingArguments (batch size, learning rate, epochs), Trainer (model, args, data), trainer.train()</li>
+            <li>Fine-tuning: load pretrained model, train on your labeled dataset, save fine-tuned weights</li>
+            <li>LoRA (Low-Rank Adaptation): add small trainable matrices to frozen model — fine-tune with 10x less memory</li>
+            <li>Quantization: load model in 4-bit with bitsandbytes — run large models on small GPU or CPU</li>
+            <li>Push to Hub: model.push_to_hub("your-username/your-model") — share your fine-tuned model</li>
+          </ul>
+          <div class="resource-row">
+            <span class="resource-label">Read:</span>
+            <span class="resource">Hugging Face NLP Course (huggingface.co/learn/nlp-course) — free, complete</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="folder-block">
+      <div class="folder-header">
+        <div class="folder-name">📁 phase-04-llms-genai / 03-prompt-engineering / <span>LLM APIs — this is what most AI products are built on</span></div>
+        <div class="badges"><span class="badge badge-pycharm">⌨ PyCharm</span><span class="badge badge-practice">🎯 Build</span></div>
+      </div>
+      <div class="folder-body">
+        <div class="topic">
+          <div class="topic-name">LLM APIs &amp; Prompt Engineering <span class="badge badge-pycharm" style="font-size:9px">llm_apis.py</span></div>
+          <ul class="topic-tasks">
+            <li>Install: pip install openai anthropic</li>
+            <li>OpenAI API: chat completions endpoint. Messages = list of {role: "system/user/assistant", content: "text"}</li>
+            <li>System prompt: sets the AI's behavior and role for the whole conversation</li>
+            <li>Anthropic (Claude) API: same structure but uses anthropic.Anthropic() client</li>
+            <li>Zero-shot prompting: just ask the question — no examples given</li>
+            <li>Few-shot prompting: give 2–3 examples of input → output before your actual question</li>
+            <li>Chain-of-thought: add "Think step by step" — forces model to reason before answering</li>
+            <li>Structured output: ask model to respond in JSON format. Use response_format={"type": "json_object"}</li>
+            <li>Function calling / tool use: define tools the model can call (search, calculator, database)</li>
+            <li>Streaming: stream=True — receive tokens one by one as generated. Better UX.</li>
+            <li>Groq API: same OpenAI format but extremely fast inference — use for prototyping</li>
+            <li>Build: CLI chatbot with conversation history, a document Q&amp;A script, a code review assistant</li>
+          </ul>
+          <div class="resource-row">
+            <span class="resource-label">Read:</span>
+            <span class="resource">OpenAI Prompt Engineering Guide (platform.openai.com/docs)</span>
+            <span class="resource">Anthropic Prompt Engineering Guide (docs.anthropic.com)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="folder-block">
+      <div class="folder-header">
+        <div class="folder-name">📁 phase-04-llms-genai / 04-rag-systems / <span>Install: pip install langchain chromadb sentence-transformers</span></div>
+        <div class="badges"><span class="badge badge-pycharm">⌨ PyCharm</span><span class="badge badge-practice">🎯 Build</span></div>
+      </div>
+      <div class="folder-body">
+        <div class="topic">
+          <div class="topic-name">RAG — Retrieval Augmented Generation <span class="badge badge-pycharm" style="font-size:9px">rag_pipeline.py</span></div>
+          <ul class="topic-tasks">
+            <li>The problem: LLMs don't know your private documents and have a knowledge cutoff date</li>
+            <li>The solution: retrieve relevant chunks from your documents, inject into the LLM prompt as context</li>
+            <li>Step 1 — Load documents: PDF, TXT, Word files using LangChain document loaders</li>
+            <li>Step 2 — Chunk: split documents into smaller pieces. RecursiveCharacterTextSplitter(chunk_size=500)</li>
+            <li>Step 3 — Embed: convert each chunk to a vector using a sentence transformer model</li>
+            <li>Step 4 — Store: save vectors in ChromaDB (local) or Pinecone (cloud)</li>
+            <li>Step 5 — Retrieve: when user asks a question, embed the question, find top-k similar chunks</li>
+            <li>Step 6 — Generate: send question + retrieved chunks to LLM. It answers using your documents.</li>
+            <li>Chunking strategies: fixed size, recursive, semantic (by meaning) — each affects quality</li>
+            <li>Reranking: use a cross-encoder to reorder retrieved chunks by relevance</li>
+            <li>Evaluation: RAGAS framework — measures faithfulness, answer relevance, context recall</li>
+          </ul>
+          <div class="resource-row">
+            <span class="resource-label">Watch:</span>
+            <span class="resource">Sam Witteveen — RAG from scratch (YouTube)</span>
+            <span class="resource">LangChain — RAG Tutorial (python.langchain.com/docs)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="folder-block">
+      <div class="folder-header">
+        <div class="folder-name">📁 phase-04-llms-genai / 05-ai-agent-project / <span>🎯 Third portfolio project — biggest one yet</span></div>
+        <div class="badges"><span class="badge badge-practice">🎯 Build</span></div>
+      </div>
+      <div class="folder-body">
+        <div class="topic">
+          <div class="topic-name">AI Agents — LLMs That Take Actions <span class="badge badge-pycharm" style="font-size:9px">agent.py</span></div>
+          <ul class="topic-tasks">
+            <li>ReAct pattern: Reason → Act → Observe → Repeat. LLM thinks about what to do, does it, sees result, repeats.</li>
+            <li>Tools: give the agent functions it can call — web search, calculator, file reader, database query</li>
+            <li>LangChain Agents: define tools with @tool decorator, create agent with create_react_agent(), run with agent.invoke()</li>
+            <li>Memory: conversation buffer (short-term), vector store retrieval (long-term)</li>
+            <li>LangGraph: build agents as graphs — nodes are steps, edges are conditions. More control than simple agents.</li>
+          </ul>
+          <div class="resource-row">
+            <span class="resource-label">Watch:</span>
+            <span class="resource">LangChain — Agents documentation (python.langchain.com)</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-title">🎯 PDF Research Assistant Agent — Full RAG + Agent Project</div>
+          <div class="project-desc">Build a complete AI assistant that: (1) Takes any PDF document as input. (2) Chunks and indexes it in ChromaDB. (3) Answers questions using RAG. (4) Has an agent that can search the web for additional context when the document doesn't have the answer. (5) Has a simple Streamlit UI (pip install streamlit) — text input box, submit button, answer displayed. Deploy on Hugging Face Spaces for free. This is your main portfolio piece for job applications.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PHASE 5 -->
+<!-- ============================================================ -->
+<div class="phase p5">
+  <div class="phase-header" onclick="togglePhase(this)">
+    <div class="phase-number">05</div>
+    <div class="phase-title-block">
+      <div class="phase-name">MLOps — Shipping AI to the Real World</div>
+      <div class="phase-subtitle">MONTHS 9.5–11 &nbsp;·&nbsp; MID MAR 2027 – APR 2027 &nbsp;·&nbsp; TURN MODELS INTO PRODUCTS</div>
+    </div>
+    <div class="phase-toggle">+</div>
+  </div>
+  <div class="phase-body">
+
+    <div class="phase-summary">
+      <div class="summary-cell"><div class="summary-label">Duration</div><div class="summary-value">1.5 Months</div></div>
+      <div class="summary-cell"><div class="summary-label">Hours</div><div class="summary-value">~180 hrs</div></div>
+      <div class="summary-cell"><div class="summary-label">PyCharm Folder</div><div class="summary-value">phase-05-mlops/</div></div>
+      <div class="summary-cell"><div class="summary-label">Key Tools</div><div class="summary-value">Docker, FastAPI, Cloud</div></div>
+    </div>
+
+    <div class="folder-block">
+      <div class="folder-header">
+        <div class="folder-name">📁 phase-05-mlops / 01-docker / <span>Download Docker Desktop from docker.com — free</span></div>
+        <div class="badges"><span class="badge badge-practice">🎯 Terminal</span><span class="badge badge-watch">▶ Watch</span></div>
+      </div>
+      <div class="folder-body">
+        <div class="topic">
+          <div class="topic-name">Docker Containerization <span class="badge badge-pycharm" style="font-size:9px">Dockerfile</span></div>
+          <ul class="topic-tasks">
+            <li>What a container is: isolated environment with everything an app needs to run — no "works on my machine"</li>
+            <li>Dockerfile: FROM python:3.11 (base image) → WORKDIR /app → COPY requirements.txt . → RUN pip install -r requirements.txt → COPY . . → CMD ["python", "app.py"]</li>
+            <li>Build image: docker build -t my-ai-app . — creates reusable image</li>
+            <li>Run container: docker run -p 8000:8000 my-ai-app — map port 8000</li>
+            <li>List containers: docker ps — see running containers</li>
+            <li>Docker Compose: define app + database in docker-compose.yml. docker compose up to start all.</li>
+            <li>Push to Docker Hub: docker tag image username/image:latest → docker push username/image</li>
+            <li>Practice: containerize your RAG chatbot from Phase 4 in a Docker container</li>
+          </ul>
+          <div class="resource-row">
+            <span class="resource-label">Watch:</span>
+            <span class="resource">TechWorld with Nana — Docker Tutorial for Beginners (YouTube)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="folder-block">
+      <div class="folder-header">
+        <div class="folder-name">📁 phase-05-mlops / 02-fastapi-serving / <span>Install: pip install fastapi uvicorn pydantic</span></div>
+        <div class="badges"><span class="badge badge-pycharm">⌨ PyCharm</span><span class="badge badge-practice">🎯 Build</span></div>
+      </div>
+      <div class="folder-body">
+        <div class="topic">
+          <div class="topic-name">FastAPI Model Serving <span class="badge badge-pycharm" style="font-size:9px">app.py</span></div>
+          <ul class="topic-tasks">
+            <li>FastAPI: Python web framework for APIs. Automatic docs at /docs. Very fast. Type-safe.</li>
+            <li>Create app: app = FastAPI(). Run: uvicorn app:app --reload (auto-reload on file change)</li>
+            <li>Routes: @app.get("/"), @app.post("/predict") — HTTP methods as decorators</li>
+            <li>Request body: define Pydantic model class. FastAPI automatically validates incoming JSON.</li>
+            <li>Load model at startup: @app.on_event("startup") — load once, not on every request</li>
+            <li>Return predictions: return {"prediction": result, "confidence": score}</li>
+            <li>Async endpoints: async def predict() — handle many requests without blocking</li>
+            <li>Build: FastAPI service wrapping your Phase 2 trained model with /predict endpoint</li>
+            <li>Test with curl: curl -X POST http://localhost:8000/predict -H "Content-Type: application/json" -d '{"text": "hello"}'</li>
+          </ul>
+          <div class="resource-row">
+            <span class="resource-label">Read:</span>
+            <span class="resource">FastAPI Official Tutorial (fastapi.tiangolo.com) — start here, it's excellent</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="folder-block">
+      <div class="folder-header">
+        <div class="folder-name">📁 phase-05-mlops / 03-cloud-deployment / <span>Start with free tiers — no payment needed to learn</span></div>
+        <div class="badges"><span class="badge badge-watch">▶ Watch</span><span class="badge badge-practice">🎯 Deploy</span></div>
+      </div>
+      <div class="folder-body">
+        <div class="topic">
+          <div class="topic-name">Cloud Deployment Options</div>
+          <ul class="topic-tasks">
+            <li><strong>Hugging Face Spaces (free):</strong> deploy Streamlit or Gradio apps. Just push code to their Git. Simplest option first.</li>
+            <li><strong>Railway.app (free tier):</strong> deploy FastAPI apps from GitHub. Connect repo → auto-deploy on push.</li>
+            <li><strong>Google Cloud Run (free tier):</strong> deploy Docker containers. Scales to zero — no cost when not in use.</li>
+            <li><strong>AWS EC2 (free tier):</strong> virtual server. SSH in, install Python, run your FastAPI app with gunicorn.</li>
+            <li><strong>AWS basics to know:</strong> EC2 (virtual server), S3 (file storage), IAM (permissions), security groups (firewall)</li>
+            <li>Deploy order: Hugging Face Spaces first → Railway → Cloud Run → AWS as you advance</li>
+          </ul>
+          <div class="resource-row">
+            <span class="resource-label">Watch:</span>
+            <span class="resource">Krish Naik — Deploy ML Model on AWS (YouTube)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="folder-block">
+      <div class="folder-header">
+        <div class="folder-name">📁 phase-05-mlops / 04-experiment-tracking / <span>Install: pip install mlflow wandb</span></div>
+        <div class="badges"><span class="badge badge-pycharm">⌨ PyCharm</span></div>
+      </div>
+      <div class="folder-body">
+        <div class="topic">
+          <div class="topic-name">MLflow &amp; Weights &amp; Biases <span class="badge badge-pycharm" style="font-size:9px">experiment_tracking.py</span></div>
+          <ul class="topic-tasks">
+            <li>Why: without tracking you can't remember which model config gave the best result</li>
+            <li>MLflow: mlflow.start_run() → mlflow.log_param("lr", 0.001) → mlflow.log_metric("accuracy", 0.92) → mlflow.log_artifact("model.pkl")</li>
+            <li>MLflow UI: mlflow ui → opens dashboard at localhost:5000 — see all runs, compare metrics</li>
+            <li>Weights &amp; Biases: wandb.init(project="my-project") → wandb.log({"loss": loss}) — richer dashboards, team features</li>
+            <li>Practice: retrain your Phase 2 model 10 times with different hyperparameters. Log all runs. Compare in dashboard.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="folder-block">
+      <div class="folder-header">
+        <div class="folder-name">📁 phase-05-mlops / 05-deployed-app-project / <span>🎯 Fourth portfolio project — fully deployed</span></div>
+        <div class="badges"><span class="badge badge-practice">🎯 Build + Deploy</span></div>
+      </div>
+      <div class="folder-body">
+        <div class="project-card">
+          <div class="project-title">🎯 End-to-End Deployed ML Product</div>
+          <div class="project-desc">Take your RAG chatbot from Phase 4. Wrap it in FastAPI. Containerize with Docker. Deploy on Google Cloud Run or Railway. Add a proper Streamlit frontend. Monitor it with LangSmith (free tier — logs every LLM call). Write a full README with: what it does, architecture diagram, how to run locally, live demo link. This is the project you put at the top of your GitHub profile and share on LinkedIn.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PHASE 6 -->
+<!-- ============================================================ -->
+<div class="phase p6">
+  <div class="phase-header" onclick="togglePhase(this)">
+    <div class="phase-number">06</div>
+    <div class="phase-title-block">
+      <div class="phase-name">AI Systems Design &amp; Expert Level</div>
+      <div class="phase-subtitle">MONTHS 11–13 &nbsp;·&nbsp; MAY 2027 – JUNE 2027 &nbsp;·&nbsp; THINK LIKE A SENIOR ENGINEER</div>
+    </div>
+    <div class="phase-toggle">+</div>
+  </div>
+  <div class="phase-body">
+
+    <div class="phase-summary">
+      <div class="summary-cell"><div class="summary-label">Duration</div><div class="summary-value">1.5 Months</div></div>
+      <div class="summary-cell"><div class="summary-label">Hours</div><div class="summary-value">~180 hrs</div></div>
+      <div class="summary-cell"><div class="summary-label">PyCharm Folder</div><div class="summary-value">phase-06-systems-design/</div></div>
+      <div class="summary-cell"><div class="summary-label">Outcome</div><div class="summary-value">Job-ready June 2027</div></div>
+    </div>
+
+    <div class="folder-block">
+      <div class="folder-header">
+        <div class="folder-name">📁 phase-06-systems-design / 01-system-design / <span>Read + design on paper/draw.io — not code</span></div>
+        <div class="badges"><span class="badge badge-read">📖 Read</span><span class="badge badge-watch">▶ Watch</span></div>
+      </div>
+      <div class="folder-body">
+        <div class="topic">
+          <div class="topic-name">AI System Design Thinking</div>
+          <ul class="topic-tasks">
+            <li>Design a complete RAG pipeline from scratch on paper: ingestion → chunking → embedding → vector store → retrieval → reranking → generation → evaluation</li>
+            <li>Latency vs throughput: batching requests increases throughput, caching reduces latency</li>
+            <li>When to use smaller models: cost optimization, latency requirements, privacy (run locally)</li>
+            <li>Caching: cache embeddings of common queries — don't recompute every time</li>
+            <li>Async processing: use queues for heavy workloads — don't block the user</li>
+            <li>Guardrails: validate inputs (no prompt injection), filter outputs (no harmful content)</li>
+            <li>Evaluation systems: automated LLM judges, human evaluation loops, A/B testing prompts</li>
+            <li>Read: Designing Machine Learning Systems by Chip Huyen — full book. Most important book in your library.</li>
+          </ul>
+          <div class="resource-row">
+            <span class="resource-label">Read:</span>
+            <span class="resource">Designing Machine Learning Systems — Chip Huyen (buy or find PDF)</span>
+            <span class="resource">Eugene Yan — Applied ML blog (eugeneyan.com)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="folder-block">
+      <div class="folder-header">
+        <div class="folder-name">📁 phase-06-systems-design / 02-fine-tuning / <span>Install: pip install trl peft unsloth</span></div>
+        <div class="badges"><span class="badge badge-notebook">📓 Colab</span><span class="badge badge-practice">🎯 Build</span></div>
+      </div>
+      <div class="folder-body">
+        <div class="topic">
+          <div class="topic-name">LLM Fine-Tuning <span class="badge badge-notebook" style="font-size:9px">finetune.ipynb (Colab)</span></div>
+          <ul class="topic-tasks">
+            <li>When to fine-tune: when prompt engineering can't achieve the quality or format you need</li>
+            <li>Dataset format for fine-tuning: JSONL file with {"instruction": "...", "response": "..."} pairs</li>
+            <li>Supervised Fine-Tuning (SFT): train on instruction-response pairs with TRL's SFTTrainer</li>
+            <li>LoRA: inject small trainable matrices (rank 8–64) into frozen model layers. 90% fewer trainable params.</li>
+            <li>QLoRA: LoRA + 4-bit quantization. Fine-tune a 7B model on free Colab GPU.</li>
+            <li>Unsloth: fine-tune 2x faster with 60% less memory — use this for Colab</li>
+            <li>Evaluation: compare fine-tuned vs base model on domain-specific test questions</li>
+            <li>Push fine-tuned model to Hugging Face Hub — public portfolio piece</li>
+          </ul>
+          <div class="resource-row">
+            <span class="resource-label">Watch:</span>
+            <span class="resource">Maxime Labonne — Fine-tune LLMs (YouTube + his GitHub)</span>
+            <span class="resource">Unsloth — Fine-tuning notebooks (github.com/unslothai/unsloth)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="folder-block">
+      <div class="folder-header">
+        <div class="folder-name">📁 phase-06-systems-design / 03-ai-safety / <span>Understand this — every employer asks about it</span></div>
+        <div class="badges"><span class="badge badge-read">📖 Read</span></div>
+      </div>
+      <div class="folder-body">
+        <div class="topic">
+          <div class="topic-name">AI Safety &amp; Responsible AI</div>
+          <ul class="topic-tasks">
+            <li>Hallucination: why LLMs confidently state false facts — how to mitigate with RAG and verification</li>
+            <li>Prompt injection: user input that hijacks system prompt — detect and sanitize inputs</li>
+            <li>Bias in training data: models learn stereotypes — how to audit and measure</li>
+            <li>PII (Personally Identifiable Information): never log user data carelessly. Use Presidio to detect PII.</li>
+            <li>Content moderation: OpenAI Moderation API, custom classifiers — filter harmful outputs</li>
+            <li>Red teaming: deliberately try to make your model produce harmful outputs — before users do</li>
+            <li>Guardrails: input validation + output filtering. guardrails-ai library.</li>
+          </ul>
+          <div class="resource-row">
+            <span class="resource-label">Read:</span>
+            <span class="resource">OWASP LLM Top 10 (owasp.org/www-project-top-10-for-large-language-model-applications)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="folder-block">
+      <div class="folder-header">
+        <div class="folder-name">📁 phase-06-systems-design / 04-capstone-project / <span>🎯 Final portfolio project — the one that gets you hired</span></div>
+        <div class="badges"><span class="badge badge-practice">🎯 Build + Deploy + Present</span></div>
+      </div>
+      <div class="folder-body">
+        <div class="project-card">
+          <div class="project-title">🎯 Capstone — Full AI Product of Your Choice</div>
+          <div class="project-desc">By month 13 you have enough skill to build anything. Pick a problem that genuinely interests you — could be for Kenya, for the church, for students, for small businesses. Requirements: (1) Uses an LLM (GPT-4, Claude, or fine-tuned open source). (2) Has a RAG component or agent. (3) Has a real UI (Streamlit minimum, or actual web frontend if you want). (4) Is fully deployed and publicly accessible. (5) Has a 1-page write-up: problem, solution, architecture, results, what you'd do next. This is what you open the laptop and show in every job interview. Make it something you're proud of.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- INCOME TIMELINE -->
+<!-- ============================================================ -->
+<div class="section-title">Income Timeline — Earn While You Learn</div>
+<table class="daily-table">
+  <thead>
+    <tr>
+      <th>Month</th>
+      <th>Skill Level</th>
+      <th>Income Opportunity</th>
+      <th>Where</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Now</td><td>Annotator</td><td>Continue Outlier / DataAnnotation work. Better understanding of tasks already.</td><td>Outlier, DataAnnotation</td></tr>
+    <tr><td>Month 3–4</td><td>Python + Data</td><td>Senior annotator roles, prompt quality roles, data labeling specialist</td><td>Scale AI, Appen, Toloka</td></tr>
+    <tr><td>Month 5–6</td><td>ML Basics</td><td>Junior data analyst, ML data preparation, Kaggle competitions (prize money)</td><td>Upwork, Kaggle</td></tr>
+    <tr><td>Month 7–8</td><td>Deep Learning</td><td>AI content creation tools, junior ML engineer assistant roles</td><td>LinkedIn, Upwork</td></tr>
+    <tr><td>Month 9–10</td><td>LLMs + RAG</td><td>LLM application developer, AI integration projects, freelance chatbot builds</td><td>Upwork, direct clients</td></tr>
+    <tr><td>Month 11–13</td><td>Full Stack AI</td><td>Junior AI Engineer roles, remote positions, freelance AI consulting</td><td>LinkedIn, Remote.co, Toptal</td></tr>
+  </tbody>
+</table>
+
+<!-- ============================================================ -->
+<!-- RESOURCES MASTER LIST -->
+<!-- ============================================================ -->
+<div class="section-title">Master Resource List — Everything You Need, Organized</div>
+<table class="daily-table">
+  <thead>
+    <tr><th>Resource</th><th>Type</th><th>Phase</th><th>Cost</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>W3Schools Python (w3schools.com/python)</td><td>Read + Practice</td><td>Phase 1</td><td>Free</td></tr>
+    <tr><td>3Blue1Brown — Linear Algebra &amp; Calculus (YouTube)</td><td>Watch</td><td>Phase 1</td><td>Free</td></tr>
+    <tr><td>StatQuest with Josh Starmer (YouTube)</td><td>Watch</td><td>Phase 1–2</td><td>Free</td></tr>
+    <tr><td>Corey Schafer Python Series (YouTube)</td><td>Watch</td><td>Phase 1</td><td>Free</td></tr>
+    <tr><td>OverTheWire: Bandit (overthewire.org)</td><td>Practice</td><td>Phase 1</td><td>Free</td></tr>
+    <tr><td>Gilbert Strang Linear Algebra (math.mit.edu)</td><td>Read</td><td>Phase 1</td><td>Free</td></tr>
+    <tr><td>Think Stats by Allen Downey (greenteapress.com)</td><td>Read</td><td>Phase 1</td><td>Free</td></tr>
+    <tr><td>scikit-learn documentation (scikit-learn.org)</td><td>Read</td><td>Phase 2</td><td>Free</td></tr>
+    <tr><td>Kaggle Datasets + Competitions (kaggle.com)</td><td>Practice</td><td>Phase 2–3</td><td>Free</td></tr>
+    <tr><td>Andrej Karpathy — Neural Nets Zero to Hero (YouTube)</td><td>Watch</td><td>Phase 3</td><td>Free</td></tr>
+    <tr><td>PyTorch Official Tutorials (pytorch.org/tutorials)</td><td>Read</td><td>Phase 3</td><td>Free</td></tr>
+    <tr><td>Google Colab (colab.research.google.com)</td><td>Free GPU</td><td>Phase 3–6</td><td>Free</td></tr>
+    <tr><td>Hugging Face NLP Course (huggingface.co/learn)</td><td>Read + Code</td><td>Phase 4</td><td>Free</td></tr>
+    <tr><td>Attention Is All You Need paper (arxiv.org)</td><td>Read</td><td>Phase 4</td><td>Free</td></tr>
+    <tr><td>LangChain Documentation (python.langchain.com)</td><td>Read</td><td>Phase 4</td><td>Free</td></tr>
+    <tr><td>FastAPI Tutorial (fastapi.tiangolo.com)</td><td>Read</td><td>Phase 5</td><td>Free</td></tr>
+    <tr><td>TechWorld with Nana — Docker (YouTube)</td><td>Watch</td><td>Phase 5</td><td>Free</td></tr>
+    <tr><td>Designing ML Systems — Chip Huyen</td><td>Read (Book)</td><td>Phase 6</td><td>Buy / Find PDF</td></tr>
+    <tr><td>Unsloth Fine-tuning Notebooks (github.com/unslothai)</td><td>Code</td><td>Phase 6</td><td>Free</td></tr>
+  </tbody>
+</table>
+
+</div><!-- /main -->
+
+<footer>
+  <div>
+    <div class="footer-name">Galgallo</div>
+    <div class="footer-mono">AI Engineer — Class of June 2027</div>
+  </div>
+  <div style="text-align:right">
+    <div class="footer-mono">Started: May 2026</div>
+    <div class="footer-mono">4 hours/day · 6 phases · 13 months</div>
+    <div class="footer-mono" style="margin-top:4px;color:var(--p1);font-weight:500">No switching. No excuses.</div>
+  </div>
+</footer>
+
+<script>
+function togglePhase(header) {
+  const body = header.nextElementSibling;
+  const btn = header.querySelector('.phase-toggle');
+  if (body.classList.contains('open')) {
+    body.classList.remove('open');
+    btn.textContent = '+';
+  } else {
+    body.classList.add('open');
+    btn.textContent = '−';
+  }
+}
+
+function expandAll() {
+  document.querySelectorAll('.phase-body').forEach(b => b.classList.add('open'));
+  document.querySelectorAll('.phase-toggle').forEach(b => b.textContent = '−');
+}
+
+function collapseAll() {
+  document.querySelectorAll('.phase-body').forEach(b => b.classList.remove('open'));
+  document.querySelectorAll('.phase-toggle').forEach(b => b.textContent = '+');
+}
+</script>
+</body>
+</html>
