@@ -1,5 +1,6 @@
 #Build a Movie Ticket Booking Calculator
 
+
 base_price = 200
 age = 22
 seat_type = 'Gold'
