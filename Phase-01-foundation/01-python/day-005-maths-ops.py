@@ -1,5 +1,6 @@
 # ARITHMETIC OPERATION
 
+
 #integer
 my_int_1 = 20
 my_int_2 = 10
