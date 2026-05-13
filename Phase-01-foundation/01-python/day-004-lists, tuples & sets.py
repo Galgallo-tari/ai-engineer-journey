@@ -117,4 +117,3 @@ print(cs_courses.difference(art_courses))       #{'IT', 'AI'}
 print(art_courses.difference(cs_courses))       #{'History', 'Craft'}
 print(cs_courses.union(art_courses))            #{'IT', 'History', 'Math', 'Design', 'AI', 'Craft'}
 
-
