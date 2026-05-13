@@ -73,4 +73,3 @@ expenses = float(expenses)
 #to check the type of a variable
 print(type(salary))
 print(type(expenses))
-
