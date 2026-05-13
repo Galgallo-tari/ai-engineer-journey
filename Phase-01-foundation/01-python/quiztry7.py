@@ -1,5 +1,6 @@
 #Loops Exercise
 
+
 #check for missing name
 
 names = ['John', 'Fatma', 'Galgallo', 'Carpenter Marcus']
