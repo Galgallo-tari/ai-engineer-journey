@@ -1,4 +1,4 @@
-#Build a Travel Weather Planner, Completed
+#Build a Travel Weather Planner
 
 
 distance_mi = 7
