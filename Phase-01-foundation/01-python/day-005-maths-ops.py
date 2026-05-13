@@ -93,3 +93,7 @@ numbers_2 = max(3, 2, 6, 76, 34, 23, 34, 54, 5)
 
 print(numbers_1)
 print(numbers_2)
+
+
+
+
