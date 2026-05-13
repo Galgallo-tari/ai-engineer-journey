@@ -18,6 +18,7 @@ print(type(weight))
 #boolean
 is_raining = True
 
+
 print(type(is_raining))
 
 #set
