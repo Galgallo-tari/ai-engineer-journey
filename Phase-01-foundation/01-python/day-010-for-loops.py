@@ -123,3 +123,20 @@ for i in range(1,7):
 *****
 ******
 '''
+
+#check whether any file name appears more than once..
+#print 'Duplicate found' if duplicate exist.
+# otherwise print 'All file are unique'
+
+file_list = ['report.csv', 'data.xlsx', 'summary.docx', 'report.csv', 'data.csv']
+
+for file in file_list:
+    if file.endswith('.xlsx') > 1:
+        print('Duplicate found')
+    else:
+        print('file are unique')
+
+
+for item in range(1,20,2):
+        print(item)
+
