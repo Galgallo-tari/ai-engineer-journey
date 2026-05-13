@@ -1,3 +1,5 @@
+#Build an Employee Profile Generator
+
 first_name = 'Galgallo'
 last_name = 'Godana'
 full_name = first_name + ' ' + last_name

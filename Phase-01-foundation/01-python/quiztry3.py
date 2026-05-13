@@ -1,3 +1,5 @@
+#Build a Bill Splitter
+
 running_total = 0
 
 friends_num = 2
