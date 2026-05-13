@@ -136,6 +136,3 @@ my_greeting = greeting.islower()
 print(my_greeting)          #True
 
 
-
-
-
