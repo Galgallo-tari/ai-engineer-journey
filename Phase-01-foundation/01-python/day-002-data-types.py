@@ -48,3 +48,6 @@ my_range_var = range(5)
 print('Range:', my_range_var) # Range: range(0, 5)
 
 print(type(my_range_var))
+
+
+name = input('Whats is your name? ')
