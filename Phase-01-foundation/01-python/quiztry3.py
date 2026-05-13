@@ -23,3 +23,4 @@ print('Bill per person:$', final_bill)
 
 each_pays = round(final_bill, 2)
 print(f'Each person pays: ${each_pays}')
+
