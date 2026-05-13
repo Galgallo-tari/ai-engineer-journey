@@ -21,6 +21,7 @@ is_raining = True
 print(type(is_raining))
 
 #set
+
 my_set = {4.5, 'hello', 700}
 
 print(type(my_set))
