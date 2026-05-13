@@ -1,5 +1,8 @@
 #for loops = execute a block of a code fixed number of times.
 
+#for var in iterable
+    #do something
+
 for x in range(1,10,2):
     #(START, END, STEPS)
     print (x)   #13579
@@ -57,3 +60,66 @@ print(f'Total: ${result}')
 
 result = expense_summary('Peter', bills)
 print(f'Total: ${result}')
+
+
+"""
+items = [0]
+for item in items:
+    print(item)
+    items.append(item)
+    if item == +11:
+        break
+"""
+
+
+
+items = [1,2,3,4,5,'Hi']
+
+for item in items:
+    print(f'Round: {item}')
+
+#OUTPUT WILL BE
+
+'''
+Round: 1
+Round: 2
+Round: 3
+Round: 4
+Round: 5
+Round: Hi
+'''
+
+for i in range(1,11):
+    math = 7 * i
+    print(f'7 x {i} = {math}')
+
+#OUTPUT WILL BE
+
+'''
+7 x 1 = 7
+7 x 2 = 14
+7 x 3 = 21
+7 x 4 = 28
+7 x 5 = 35
+7 x 6 = 42
+7 x 7 = 49
+7 x 8 = 56
+7 x 9 = 63
+7 x 10 = 70
+
+  '''
+
+for i in range(1,7):
+    symbol = '*' * i
+    print(symbol)
+
+#OUTPUT WILL BE
+
+'''
+*
+**
+***
+****
+*****
+******
+'''
