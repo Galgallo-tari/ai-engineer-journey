@@ -24,3 +24,6 @@ initials = employee_code[9:11]
 print('Initials:', initials)
 last_three = employee_code[-3:]
 print('Code:', last_three)
+
+
+
