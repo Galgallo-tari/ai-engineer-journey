@@ -1,0 +1,17 @@
+<link href="./path/to/stylesheet/style.css" rel="stylesheet" type="text/css">
+<style>
+body {
+    background-color: linen;
+}
+</style>
+
+/* To revisit this */
+
+/* This is a 
+   multi-line comment */
+
+.box {
+    position: relative;
+    top: 20px;
+    left: 20px;
+}
