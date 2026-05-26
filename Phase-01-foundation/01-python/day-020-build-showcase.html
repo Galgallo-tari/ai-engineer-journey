@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galgallo — Project Showcase</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #0d0d0d;
+      color: #e0e0e0;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 40px 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    header h1 {
+      font-size: 36px;
+      color: #00ff87;
+      letter-spacing: 2px;
+    }
+
+    header p {
+      color: #888;
+      margin-top: 8px;
+      font-size: 14px;
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: #161616;
+      border: 1px solid #222;
+      border-left: 4px solid #00ff87;
+      padding: 24px;
+      border-radius: 4px;
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+    }
+
+    .card h2 {
+      font-size: 18px;
+      color: #00ff87;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      font-size: 13px;
+      color: #aaa;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .card a {
+      display: inline-block;
+      padding: 8px 16px;
+      background: transparent;
+      border: 1px solid #00ff87;
+      color: #00ff87;
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: background 0.2s;
+    }
+
+    .card a:hover {
+      background: #00ff87;
+      color: #000;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 60px;
+      color: #444;
+      font-size: 12px;
+      letter-spacing: 2px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>GALGALLO</h1>
+    <p>AI Engineering Student · Kenya 🇰🇪 · Building Every Day</p>
+  </header>
+
+  <div class="projects">
+
+    <div class="card">
+      <h2>Calculator App</h2>
+      <p>A CLI calculator that handles addition, subtraction, multiplication and division. Built with Python functions and error handling.</p>
+      <a href="https://github.com/Galgallo-tari/ai-engineer-journey" target="_blank">View on GitHub →</a>
+    </div>
+
+    <div class="card">
+      <h2>Bill Splitter</h2>
+      <p>Splits a restaurant bill among any number of people with custom tip percentage. Uses variables, math operations and user input.</p>
+      <a href="https://github.com/Galgallo-tari/ai-engineer-journey" target="_blank">View on GitHub →</a>
+    </div>
+
+    <div class="card">
+      <h2>Caesar Cipher</h2>
+      <p>Encrypts and decrypts any message by shifting letters. Combines string manipulation and functions. Real encryption concept.</p>
+      <a href="https://github.com/Galgallo-tari/ai-engineer-journey" target="_blank">View on GitHub →</a>
+    </div>
+
+    <div class="card">
+      <h2>Expense Tracker</h2>
+      <p>CLI tool to track expenses by category. Add, view, total by category, save to file and reload on next run. Full file handling.</p>
+      <a href="https://github.com/Galgallo-tari/ai-engineer-journey" target="_blank">View on GitHub →</a>
+    </div>
+
+    <div class="card">
+      <h2>Number Pattern Generator</h2>
+      <p>Generates triangle, square, pyramid and diamond patterns using nested loops. Demonstrates Python loop mastery.</p>
+      <a href="https://github.com/Galgallo-tari/ai-engineer-journey" target="_blank">View on GitHub →</a>
+    </div>
+
+  </div>
+
+  <footer>
+    GALGALLO · AI ENGINEER IN TRAINING · DAY 20 OF 420
+  </footer>
+
+</body>
+</html>
