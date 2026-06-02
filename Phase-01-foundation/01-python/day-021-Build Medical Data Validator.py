@@ -106,6 +106,4 @@ def validate(data):
 validate(medical_records)
 
 
-
-
 print("Hello, world!")
