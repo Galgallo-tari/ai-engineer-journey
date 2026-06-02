@@ -43,7 +43,6 @@ print(cs_courses)
 #A set A is a superset of B if A has all the elements of B (and possibly more).
 
 
-
 B = {1, 2, 3, 4, 5}
 A = {2, 3, 4}       # ← every element of A is inside B ✓
 
