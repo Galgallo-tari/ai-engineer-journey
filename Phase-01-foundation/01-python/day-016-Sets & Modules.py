@@ -57,7 +57,7 @@ print(A.isdisjoint(B)) # False
 #The union operator | returns a new set with all the elements from both sets
 
 #The intersection operator & returns a new set with only the elements that the sets have in common
-
+#.....................................
 #The difference operator - returns a new set with the elements of the first set that are not in the other sets
 
 
